@@ -8,7 +8,7 @@ const element_powerButton = document.getElementById("power_button")
 function EstablishProxy() {
     return new Promise(function(resolve) {
         fetch("https://api.ipify.org").then(response => response.text()).then(wan_ipv4 => {
-            const proxy = new WebSocket("ws://telnet-proxy.herokuapp.com");
+            const proxy = new WebSocket("wss://telnet-proxy.herokuapp.com");
             proxy.onopen = function() {
                 proxy.onmessage = function(message) {
                     if (message.data == "ready") {
@@ -117,6 +117,6 @@ EstablishProxy().then(proxy => {
         QueryPowerState(state => {
             powerState = state;
             RenderPowerState();
-        });
+        }); 
     }
 })

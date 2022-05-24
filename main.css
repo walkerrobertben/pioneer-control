@@ -9,6 +9,10 @@ body {
     justify-content: center;
 }
 
+.rounded-corners {
+    border-radius: 2rem;
+}
+
 .remote-container {
     position: fixed;
 

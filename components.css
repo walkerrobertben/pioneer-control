@@ -1,0 +1,27 @@
+#power_button {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    left: 50%;
+}
+
+.toggle {
+    padding: 0.5rem;
+    border-radius: 23%/50%;
+    background-color: var(--color-off);
+    transition: background-color 0.1s ease-in-out;
+}
+.toggle .circle {
+    height: 100%;
+    aspect-ratio: 1;
+    border-radius: 100%;
+    background-color: var(--color1);
+    transition: margin-left 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+.toggle.on {
+    background-color: var(--color-on);
+}
+.toggle.on .circle {
+    margin-left: 100%;
+    transform: translateX(-100%);
+}

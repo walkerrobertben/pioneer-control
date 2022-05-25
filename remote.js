@@ -137,14 +137,25 @@ class VolumeControl {
         this.connectClick = function(click) {
 
             function callWhileHeld(elem, func) {
-                elem.onclick = func;
-                elem.onmousedown = function() {
-                    const holdId = setInterval(func, 250);
-                    elem.onmouseleave = elem.onmouseup = function() {
-                        clearInterval(holdId);
-                        elem.onmouseleave = elem.onmouseup = null;
-                    }
+                var holdId = null;
+                function onDown() {
+                    if (holdId != null) return;
+                    holdId = setInterval(func, 250);
                 }
+                function onUp() {
+                    if (holdId != null) clearInterval(holdId);
+                    holdId = null;
+                }
+
+                elem.onclick = func;
+
+                elem.addEventListener("mousedown", onDown);
+                window.addEventListener("mouseup", onUp);
+                //window.addEventListener("mouseleave", onUp);
+
+                elem.addEventListener("touchstart", onDown);
+                window.addEventListener("touchend", onUp);
+                window.addEventListener("touchcancel", onUp);
             }
 
             callWhileHeld(buttonDown, function() {
@@ -153,15 +164,6 @@ class VolumeControl {
             callWhileHeld(buttonUp, function() {
                 click(1);
             });
-
-            /*
-            buttonDown.onclick = function() {
-                click(-1);
-            }
-            buttonUp.onclick = function() {
-                click(1);
-            }
-            */
         }
     }
 }

@@ -35,6 +35,38 @@
     z-index: 1;
 }
 
+#input_switches {
+    width: 100%;
+    height: 100%;
+}
+#input_switches .switch {
+    width: calc(100% / 3);
+}
+
+#volume_slider {
+    flex-grow: 1;
+    height: 0.5rem;
+}
+#mute_button {
+    height: 100%;
+    aspect-ratio: 1;
+    margin-left: 0.5rem;
+}
+
+.volume-button {
+    height: 100%;
+    aspect-ratio: 1;
+}
+
+
+
+
+
+
+
+
+
+
 .toggle {
     padding: 0.5rem;
     border-radius: var(--row-height);
@@ -48,7 +80,7 @@
     border-radius: 100%;
 
     background-color: var(--color-power-toggle-circle);
-    box-shadow: inset 0 0 calc(var(--glow-size) * 0.35)  calc(var(--glow-size) * 0.35) var(--color-innerglow);
+    box-shadow: inset 0 0 calc(var(--glow-size) * 0.25)  calc(var(--glow-size) * 0.25) var(--color-innerglow);
     transition: margin-left 0.1s ease-in-out, transform 0.1s ease-in-out;
 
     display: flex;
@@ -71,18 +103,16 @@
 
 
 
+
 .switches {
     display: flex;
-    width: 100%;
-    height: 100%;
 }
 .switch {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(100% / 3);
 
-    --button-gap: 0.2rem;
+    --button-gap: 0.5rem;
     margin-left: calc(var(--button-gap)/2);
     margin-right: calc(var(--button-gap)/2);
 
@@ -107,4 +137,77 @@
     text-align: center;
     font-size: 0.7rem;
     
+}
+
+
+.slider .bar {
+    display: block;
+    margin: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 1rem;
+    background-color: var(--color-slider-bar);
+    box-shadow: inset 0 0 calc(var(--glow-size) * 0.35)  calc(var(--glow-size) * 0.35) var(--color-innerglow);
+}
+.slider .head {
+    position: relative;
+    width: 0.5rem;
+    height: 2.25rem;
+    border-radius: 0.25rem;
+
+    --head-position: 0.5;
+    left: calc( var(--head-position) * (100% - 0.5rem) );
+    top: calc(50%  - (2.25rem/2));
+
+    background-color: var(--color-slider-point);
+    box-shadow: inset 0 0 calc(var(--glow-size) * 0.35)  calc(var(--glow-size) * 0.35) var(--color-innerglow);
+}
+
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 0.5rem;
+
+    background-color: var(--color-button-off);
+    box-shadow: inset 0 0 var(--glow-size) var(--glow-size) var(--color-innerglow);
+    transition: background-color 0.1s ease-in-out;
+}
+.button.on {
+    background-color: var(--color-button-on);
+}
+.button p {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    font-size: 0.7rem;
+}
+.button svg {
+    width: 50%;
+    height: 50%;
+}
+
+.volume {
+
+    flex-grow: 1;
+    height: 100%;
+
+    margin: 0 0.5rem;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 0.5rem;
+    background-color: var(--color-volume-back);
+    box-shadow: inset 0 0 var(--glow-size) var(--glow-size) var(--color-innerglow);
+}
+.volume p {
+    margin: 0;
+    text-align: center;
+    padding: 0 1rem;
 }

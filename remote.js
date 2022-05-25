@@ -36,7 +36,7 @@ function parseMessage(message) {
     const first2 = message.substring(0, 2);
     const after2 = message.substring(2);
 
-    const valid3 = ["PWR"];
+    const valid3 = ["PWR", "MUT", "VOL"];
     const first3 = message.substring(0, 3);
     const after3 = message.substring(3);
 
@@ -117,6 +117,55 @@ class ButtonSwitch {
     }
 }
 
+class VolumeControl {
+    constructor(slider, text, buttonDown, buttonUp) {
+
+        this.value = 0;
+        
+        this.set = function(newValue) {
+            this.value = newValue;
+
+            slider.style.setProperty("--head-position", newValue/185);
+
+            if (this.value == 0) {
+                text.innerHTML = "---.-dB";
+            } else {
+                text.innerHTML = ((((this.value-1)/184)*92)-80).toFixed(1) + "dB";
+            }
+        }
+
+        this.connectClick = function(click) {
+
+            function callWhileHeld(elem, func) {
+                elem.onclick = func;
+                elem.onmousedown = function() {
+                    const holdId = setInterval(func, 250);
+                    elem.onmouseleave = elem.onmouseup = function() {
+                        clearInterval(holdId);
+                        elem.onmouseleave = elem.onmouseup = null;
+                    }
+                }
+            }
+
+            callWhileHeld(buttonDown, function() {
+                click(-1);
+            });
+            callWhileHeld(buttonUp, function() {
+                click(1);
+            });
+
+            /*
+            buttonDown.onclick = function() {
+                click(-1);
+            }
+            buttonUp.onclick = function() {
+                click(1);
+            }
+            */
+        }
+    }
+}
+
 establishProxy().then(proxy => {
     document.getElementById("loading_screen").classList.add("hidden");
 
@@ -126,11 +175,21 @@ establishProxy().then(proxy => {
         proxy.send(command);
     }
 
+    function getState() {
+        tx("?P");
+        tx("?F");
+        tx("?M");
+        tx("?V");
+    }
+
     //make components
     const powerToggle = new ToggleSwitch(document.getElementById("power_button"));
     powerToggle.connectClick(function() {
         flashLed(150);
         tx(powerToggle.value ? "PF" : "PO");
+
+        //power updates all states so refresh
+        getState();
     })
 
     const inputSwitches = new ButtonSwitch([document.getElementById("input_1"), document.getElementById("input_2"), document.getElementById("input_3")]);
@@ -139,9 +198,24 @@ establishProxy().then(proxy => {
         tx(indexToInput(i) + "FN");
     })
 
-    //fetch latest info
-    tx("?P");
-    tx("?F");
+    const muteSwitch = new ButtonSwitch([document.getElementById("mute_button")]);
+    muteSwitch.connectClick(function() {
+        flashLed(150);
+        tx(muteSwitch.value == null ? "MO" : "MF");
+    })
+
+    const volumeControl = new VolumeControl(
+        document.getElementById("volume_slider_head"),
+        document.getElementById("volume_show").getElementsByTagName("p")[0],
+        document.getElementById("volume_down"),
+        document.getElementById("volume_up"),
+    );
+    volumeControl.connectClick(function(delta) {
+        flashLed(150);
+        tx(delta == 1 ? "VU" : "VD");
+    })
+
+    getState();
 
     proxy.onmessage = function(messages) {
         messageList = messages.data.split(LF);
@@ -159,6 +233,14 @@ establishProxy().then(proxy => {
                         inputSwitches.set(inputToIndex(data));
                         break;
 
+                    case "MUT":
+                        muteSwitch.set(data == 0 ? 0 : null);
+                        break;
+
+                    case "VOL":
+                        volumeControl.set(data);
+                        break;
+
                     default:
                         console.log("Unhandled message: %s", keyword);
                 }
@@ -166,123 +248,3 @@ establishProxy().then(proxy => {
         });
     }
 })
-
-
-
-/*
-//Creates a command processor queue
-function CreateCommandQueue(proxy) {
-    var isProcessing = false;
-    var command_queue = [];
-
-    function Process() {
-        if (isProcessing) return;
-        isProcessing = true;
-
-        let command, replyHandler;
-        [command, replyHandler] = command_queue.shift();
-
-        console.log("writing: %s", "S_" + command + CR);
-        proxy.send("S_" + command + CR);
-
-        if (replyHandler) {
-            proxy.onmessage = function(message) {
-                proxy.onmessage = null;
-                replyHandler(message.data.replace(CR,"").replace(LF,""));
-                ProcessFinished();
-            }
-        } else {
-            ProcessFinished();
-        }
-    }
-    function ProcessFinished() {
-        isProcessing = false;
-        if (command_queue.length > 0) {
-            Process();
-        }
-    }
-    function Push(command, callback) {
-        command_queue.push([command, callback]);
-        Process();
-    }
-
-    return Push;
-}
-
-//Establish proxy, and then hide the establishing loading spinner
-EstablishProxy().then(proxy => {
-    document.getElementById("loading_screen").classList.add("hidden");
-
-    //Create command queue
-    const Push = CreateCommandQueue(proxy);
-    
-    //Utility functions
-    function QueryPowerState(state) {
-        Push("?P", reply => {
-            switch(reply) {
-                case "PWR0":
-                    state(true);
-                    break;
-                case "PWR1":
-                    state(false);
-                    break;
-                default:
-                    console.log("Unhandled reply: %s", reply);
-            }
-        });
-    }
-    function SetPowerState(newState) {
-        if (newState) {
-            Push("PO");
-        } else {
-            Push("PF");
-        }
-    }
-
-    function QueryInput() {
-        Push("?F", reply => {
-            console.log(reply);
-        })
-    }
-
-
-    function UpdateEntireRemote(powerState) {
-        if (powerState) {
-            QueryInput();
-        } else {
-
-        }
-    }
-
-    //Power toggle switch
-    var powerState = false;
-    function RenderPowerState() {
-        if (powerState) {
-            element_powerButton.classList.add("on");
-        } else {
-            element_powerButton.classList.remove("on");
-        }
-    }
-    QueryPowerState(state => {
-        powerState = state;
-        RenderPowerState();
-        UpdateEntireRemote(powerState);
-    });
-    element_powerButton.onclick = function() {
-
-        //Flip state locally, and render
-        powerState = !powerState;
-        RenderPowerState();
-
-        //Tell receiver to switch to the new state
-        SetPowerState(powerState);
-        
-        //Get state from receiver. If success, it'll just stay on
-        QueryPowerState(state => {
-            powerState = state;
-            RenderPowerState();
-            UpdateEntireRemote(powerState);
-        }); 
-    }
-})
-*/

@@ -28,14 +28,31 @@
                     </div>
                 </div>
 
-                <div class="button-row thin">
-                    <div class="switches">
+                <div class="button-row">
+                    <div id="input_switches" class="switches">
                         <div id="input_1" class="switch"><p>Chromecast</p></div>
                         <div id="input_2" class="switch"><p>Xbox</p></div>
                         <div id="input_3" class="switch"><p>Nintendo Wii</p></div>
                     </div>
                 </div>
                 
+                <div class="button-row">
+                    <div id="volume_slider" class="slider"><div class="bar"><div id="volume_slider_head" class="head"></div></div>
+                    </div>
+                    <div id="mute_button" class="button"><p>Mute</p></div>
+                </div>
+
+                <div class="button-row justify-row-center">
+                    <div id="volume_down" class="button volume-button">
+                        <svg version="1.1" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+                            <rect transform="rotate(-90)" x="-6" y="0" width="2" height="10" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div id="volume_show" class="volume"><p>---.-dB</p></div>
+                    <div id="volume_up" class="button volume-button">
+                        <svg version="1.1" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><g fill="currentColor"><rect x="4" y="0" width="2" height="10"/><rect transform="rotate(-90)" x="-6" y="0" width="2" height="10"/></g></svg>
+                    </div>
+                </div>
 
             </div>
         </div>

@@ -1,20 +1,27 @@
 :root {
 
+    --color-background: rgb(235, 235, 235);
+
     --color-remote: rgb(55, 55, 55);
     --color-text: rgb(235, 235, 235);
 
-    --color-indicator-off: rgb(80, 80, 80);
+    --color-indicator-off: rgb(90, 90, 90);
     --color-indicator-lit: rgb(228, 81, 81);
 
-    --color-name-background: rgb(80, 80, 80);
+    --color-name-background: rgb(90, 90, 90);
 
-    --color-power-toggle-off: rgb(110, 110, 110);
+    --color-power-toggle-off: rgb(125, 125, 125);
     --color-power-toggle-on: rgb(86, 201, 105);
     --color-power-toggle-circle: rgb(235, 235, 235);
-    --color-power-toggle-icon: rgb(80, 80, 80);
+    --color-power-toggle-icon: rgb(90, 90, 90);
 
-    --color-button-off: rgb(110, 110, 110);
+    --color-button-off: rgb(125, 125, 125);
     --color-button-on: rgb(86, 201, 105);
+
+    --color-slider-bar: rgb(90, 90, 90);
+    --color-slider-point: rgb(235, 235, 235);
+
+    --color-volume-back: rgb(35, 35, 35);
 
     --glow-size: 0.5rem;
     --color-innerglow: rgba(0, 0, 0, 0.15);
@@ -34,7 +41,7 @@ html, body {
     font-weight: bold;
     font-size: 24px;
 
-    letter-spacing: -0.035rem;
+    letter-spacing: -0.02rem;
 
     color: var(--color-text);
 }
@@ -54,6 +61,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background-color: var(--color-background);
 }
 
 .loading-container {
@@ -110,6 +119,9 @@ body {
     width: 100%;
     height: var(--row-height);
     margin-bottom: 1rem;
+}
+.button-row.big {
+    height: calc(var(--row-height) * 1.4);
 }
 .button-row.thin {
     height: calc(var(--row-height) * 0.6);

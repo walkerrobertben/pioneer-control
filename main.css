@@ -1,18 +1,23 @@
 :root {
-    --color0: rgb(55, 55, 55);
-    --color1: rgb(240, 240, 240);
-    --color2: rgb(220, 220, 220);
-    --color3: rgba(35, 35, 35, 0.5);
-    --color4: rgb(156, 156, 156);
-    --color5: rgb(86, 201, 105);
-    --color6: rgb(228, 81, 81);
 
-    --glow-size: 0.4rem;
-    --color7: rgba(0, 0, 0, 0.15);
+    --color-remote: rgb(55, 55, 55);
+    --color-text: rgb(235, 235, 235);
 
-    
+    --color-indicator-off: rgb(80, 80, 80);
+    --color-indicator-lit: rgb(228, 81, 81);
 
-    --row-height: 3.5rem;
+    --color-name-background: rgb(80, 80, 80);
+
+    --color-power-toggle-off: rgb(100, 100, 100);
+    --color-power-toggle-on: rgb(86, 201, 105);
+
+    --color-button-off: rgb(100, 100, 100);
+    --color-button-on: rgb(86, 201, 105);
+
+    --glow-size: 0.5rem;
+    --color-innerglow: rgba(0, 0, 0, 0.15);
+
+    --row-height: 3rem;
 }
 * {
     color: inherit;
@@ -24,9 +29,12 @@ html, body {
     margin: 0;
 
     font-family: system-ui;
+    font-weight: bold;
     font-size: 24px;
 
-    color: var(--color0);
+    letter-spacing: -0.035rem;
+
+    color: var(--color-text);
 }
 @media screen and (max-width: 450px) {
     html, body {
@@ -90,7 +98,8 @@ body {
     height: 100%;
     padding: 1rem;
 
-    background-color: var(--color1);
+    background-color: var(--color-remote);
+    box-shadow: inset 0 0 var(--glow-size) var(--glow-size) var(--color-innerglow);
 }
 
 .button-row {
@@ -101,7 +110,7 @@ body {
     margin-bottom: 1rem;
 }
 .button-row.thin {
-    height: calc(var(--row-height) * 0.5);
+    height: calc(var(--row-height) * 0.6);
 }
 
 .justify-row-center {

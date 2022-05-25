@@ -96,7 +96,7 @@ body {
 
     width: 100%;
     height: 100%;
-    padding: 1rem;
+    padding: 0.5rem;
 
     background-color: var(--color-remote);
     box-shadow: inset 0 0 var(--glow-size) var(--glow-size) var(--color-innerglow);

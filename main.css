@@ -1,13 +1,21 @@
 :root {
-    --color0: rgb(35, 35, 35);
+    --color0: rgb(55, 55, 55);
     --color1: rgb(240, 240, 240);
+    --color2: rgb(220, 220, 220);
+    --color3: rgba(35, 35, 35, 0.5);
+    --color4: rgb(156, 156, 156);
+    --color5: rgb(86, 201, 105);
+    --color6: rgb(228, 81, 81);
 
-    --color-off: rgb(156, 156, 156);
-    --color-on: rgb(86, 201, 105);
+    --glow-size: 0.4rem;
+    --color7: rgba(0, 0, 0, 0.15);
 
-    --row-height: 12%;
+    
+
+    --row-height: 3.5rem;
 }
 * {
+    color: inherit;
     box-sizing: border-box;
 }
 
@@ -15,9 +23,22 @@ html, body {
     height: 100%;
     margin: 0;
 
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
+    font-family: system-ui;
+    font-size: 24px;
+
+    color: var(--color0);
 }
+@media screen and (max-width: 450px) {
+    html, body {
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 350px) {
+    html, body {
+        font-size: 16px;
+    }
+}
+
 
 body {
     display: flex;
@@ -48,11 +69,11 @@ body {
 .remote-container {
     position: fixed;
     height: 100%;
-    aspect-ratio: 0.5625;
+    aspect-ratio: 0.5;
 
     padding: 1rem;
 }
-@media (max-aspect-ratio: 9/16) {
+@media (max-aspect-ratio: 1/2) {
     .remote-container {
         height: initial;
         width: 100%;
@@ -73,14 +94,26 @@ body {
 }
 
 .button-row {
+    display: flex;
+    align-items: center;
     width: 100%;
     height: var(--row-height);
     margin-bottom: 1rem;
+}
+.button-row.thin {
+    height: calc(var(--row-height) * 0.5);
+}
+
+.justify-row-center {
+    justify-content: center;
+}
+.justify-row-right {
+    justify-content: right;
 }
 
 .hidden {
     display: none;
 }
 .rounded-corners {
-    border-radius: 2rem;
+    border-radius: 1rem;
 }

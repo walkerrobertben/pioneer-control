@@ -1,14 +1,41 @@
+#indicator_led {
+    height: 75%;
+    aspect-ratio: 1;
+    border-radius: 100%;
+
+    background-color: var(--color4);
+    box-shadow: inset 0 0 var(--glow-size) var(--glow-size) var(--color7);
+}
+#indicator_led.lit{
+    background-color: var(--color6);
+}
+
+#remote_name {
+    text-align: center;
+    font-size: 0.75rem;
+    margin: 0;
+
+    padding: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 2rem;
+    background-color: var(--color2);
+    border-radius: 0.75rem;
+
+    transform: translateX(1.5rem);
+    margin-left: -1.5rem;
+}
+
 #power_button {
-    position: relative;
     width: 50%;
     height: 100%;
-    left: 50%;
+    z-index: 1;
 }
 
 .toggle {
     padding: 0.5rem;
     border-radius: 23%/50%;
-    background-color: var(--color-off);
+    background-color: var(--color4);
+    box-shadow: inset 0 0 var(--glow-size) var(--glow-size) var(--color7);
     transition: background-color 0.1s ease-in-out;
 }
 .toggle .circle {
@@ -18,10 +45,54 @@
     background-color: var(--color1);
     transition: margin-left 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
+.toggle .circle svg{
+    position: relative;
+    left: 25%;
+    top: 25%;
+    width: 50%;
+    height: 50%;
+    color: var(--color3);
+}
 .toggle.on {
-    background-color: var(--color-on);
+    background-color: var(--color5);
 }
 .toggle.on .circle {
     margin-left: 100%;
     transform: translateX(-100%);
+}
+
+.switches {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+.switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% / 3);
+
+    --button-gap: 0.2rem;
+    margin-left: calc(var(--button-gap)/2);
+    margin-right: calc(var(--button-gap)/2);
+
+    border-radius: 0.5rem;
+
+    background-color: var(--color2);
+    box-shadow: inset 0 0 var(--glow-size) var(--glow-size) var(--color7);
+}
+.switch.on {
+    background-color: var(--color5);
+}
+.switch:first-child {
+    margin-left: 0;
+}
+.switch:last-child {
+    margin-right: 0;
+}
+.switch p {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    font-size: 0.7rem;
 }

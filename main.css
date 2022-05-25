@@ -32,6 +32,9 @@
     color: inherit;
     box-sizing: border-box;
 }
+p {
+    user-select: none;
+}
 
 html, body {
     height: 100%;

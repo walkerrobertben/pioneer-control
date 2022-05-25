@@ -169,6 +169,10 @@ class VolumeControl {
 establishProxy().then(proxy => {
     document.getElementById("loading_screen").classList.add("hidden");
 
+    proxy.onclose = function() {
+        document.getElementById("timeout_screen").classList.remove("hidden");
+    }
+
     function tx(command) {
         command = "S_" + command + CR;
         console.log(command);

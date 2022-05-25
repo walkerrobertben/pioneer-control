@@ -157,7 +157,7 @@
     height: 2.25rem;
     border-radius: 0.25rem;
 
-    --head-position: 0.5;
+    --head-position: 0;
     left: calc( var(--head-position) * (100% - 0.5rem) );
     top: calc(50%  - (2.25rem/2));
 

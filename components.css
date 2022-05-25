@@ -46,16 +46,19 @@
     height: 100%;
     aspect-ratio: 1;
     border-radius: 100%;
-    background-color: var(--color1);
+
+    background-color: var(--color-power-toggle-circle);
+    box-shadow: inset 0 0 calc(var(--glow-size) * 0.35)  calc(var(--glow-size) * 0.35) var(--color-innerglow);
     transition: margin-left 0.1s ease-in-out, transform 0.1s ease-in-out;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .toggle .circle svg{
-    position: relative;
-    left: 25%;
-    top: 25%;
     width: 50%;
     height: 50%;
-    color: var(--color3);
+    color: var(--color-power-toggle-icon);
 }
 .toggle.on {
     background-color: var(--color-power-toggle-on);

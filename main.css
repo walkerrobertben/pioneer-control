@@ -8,10 +8,12 @@
 
     --color-name-background: rgb(80, 80, 80);
 
-    --color-power-toggle-off: rgb(100, 100, 100);
+    --color-power-toggle-off: rgb(110, 110, 110);
     --color-power-toggle-on: rgb(86, 201, 105);
+    --color-power-toggle-circle: rgb(235, 235, 235);
+    --color-power-toggle-icon: rgb(80, 80, 80);
 
-    --color-button-off: rgb(100, 100, 100);
+    --color-button-off: rgb(110, 110, 110);
     --color-button-on: rgb(86, 201, 105);
 
     --glow-size: 0.5rem;
@@ -69,7 +71,7 @@ body {
     z-index: 1;
 }
 .loading-container p {
-    color: var(--color0);
+    color: var(--color-text);
     font-size: 1.5rem;
     text-align: center;
 }
